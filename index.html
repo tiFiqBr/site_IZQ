@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IZQ Instalações - Instalação de Comunicação Visual</title>
+    <!-- Inclui o CDN do Tailwind CSS para fácil estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Define a fonte Inter para todo o corpo do documento */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Definição das cores personalizadas para uso no Tailwind CSS */
+      .bg-izq-dark {
+        background-color: #010101; /* Preto quase puro */
+      }
+      .text-izq-dark {
+        color: #010101;
+      }
+      .bg-izq-light {
+        background-color: #76d0c4; /* Verde Água */
+      }
+      .text-izq-light {
+        color: #76d0c4;
+      }
+      .border-izq-light {
+        border-color: #76d0c4;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Cabeçalho (Header) da página -->
+    <header class="bg-izq-dark text-white py-6 shadow-md">
+      <div
+        class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center"
+      >
+        <h1
+          class="text-3xl font-bold mb-2 md:mb-0 rounded-lg p-2 text-izq-light"
+        >
+          IZQ Instalações
+        </h1>
+        <nav>
+          <ul class="flex space-x-6">
+            <li>
+              <a
+                href="#inicio"
+                class="hover:text-izq-light transition duration-300 rounded-lg p-2"
+                >Início</a
+              >
+            </li>
+            <li>
+              <a
+                href="#sobre"
+                class="hover:text-izq-light transition duration-300 rounded-lg p-2"
+                >Sobre Nós</a
+              >
+            </li>
+            <li>
+              <a
+                href="#servicos"
+                class="hover:text-izq-light transition duration-300 rounded-lg p-2"
+                >Serviços</a
+              >
+            </li>
+            <li>
+              <a
+                href="#clientes"
+                class="hover:text-izq-light transition duration-300 rounded-lg p-2"
+                >Clientes</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contato"
+                class="hover:text-izq-light transition duration-300 rounded-lg p-2"
+                >Contato</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Seção de Início (Hero Section) -->
+    <section
+      id="inicio"
+      class="relative bg-izq-dark text-white py-20 flex items-center justify-center min-h-[50vh]"
+    >
+      <div class="container mx-auto px-4 text-center">
+        <h2
+          class="text-5xl font-extrabold mb-6 leading-tight rounded-lg p-2 text-izq-light"
+        >
+          IZQ Instalações: Dando Vida à Sua Comunicação Visual
+        </h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto rounded-lg p-2">
+          Especialistas em instalação de outdoors, lonas, adesivos e projetos
+          gigantes. Qualidade e visibilidade garantidas.
+        </p>
+        <a
+          href="#servicos"
+          class="bg-izq-light text-izq-dark hover:bg-opacity-80 font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
+        >
+          Nossos Serviços
+        </a>
+      </div>
+    </section>
+
+    <!-- Seção Sobre Nós (About Us) -->
+    <section id="sobre" class="py-16 bg-white">
+      <div
+        class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-10"
+      >
+        <div class="md:w-1/2">
+          <img
+            src="https://placehold.co/600x400/76D0C4/010101?text=Instalação"
+            alt="Instalação de Comunicação Visual"
+            class="rounded-2xl shadow-xl w-full h-auto object-cover"
+          />
+        </div>
+        <div class="md:w-1/2">
+          <h3 class="text-4xl font-bold mb-6 text-izq-dark rounded-lg p-2">
+            Quem Somos
+          </h3>
+          <p class="text-lg leading-relaxed mb-4 rounded-lg p-2">
+            A IZQ Instalações é uma empresa dedicada à excelência em montagem e
+            instalação de comunicação visual. Com vasta experiência no mercado,
+            somos especialistas em transformar projetos em realidade, garantindo
+            visibilidade e impacto para a sua marca.
+          </p>
+          <p class="text-lg leading-relaxed rounded-lg p-2">
+            Nossa equipe qualificada e apaixonada trabalha com precisão na
+            instalação de outdoors, lonas de grande formato, adesivos médios e
+            gigantes, entre outras soluções. Comprometidos com a segurança e a
+            qualidade, entregamos resultados que superam as expectativas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Serviços (Services) -->
+    <section id="servicos" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4 text-center">
+        <h3 class="text-4xl font-bold mb-12 text-izq-dark rounded-lg p-2">
+          Nossos Serviços
+        </h3>
+        <div
+          class="flex gap-8 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-izq-dark scrollbar-track-gray-200"
+        >
+          <!-- Cartão de Serviço 1 -->
+          <div
+            class="min-w-[300px] bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+          >
+            <img
+              src="https://placehold.co/100x100/76D0C4/010101?text=Outdoor"
+              alt="Ícone Outdoor"
+              class="mx-auto mb-6 rounded-full"
+            />
+            <h4
+              class="text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
+            >
+              Instalação de Outdoors
+            </h4>
+            <p class="text-gray-600 rounded-lg p-2">
+              Montagem e instalação profissional de outdoors, garantindo
+              segurança e máxima exposição.
+            </p>
+          </div>
+
+          <!-- Cartão de Serviço 2 -->
+          <div
+            class="min-w-[300px] bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+          >
+            <img
+              src="https://placehold.co/100x100/76D0C4/010101?text=Lona"
+              alt="Ícone Lona"
+              class="mx-auto mb-6 rounded-full"
+            />
+            <h4
+              class="text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
+            >
+              Lonas e Adesivos de Grande Formato
+            </h4>
+            <p class="text-gray-600 rounded-lg p-2">
+              Instalação impecável de lonas e adesivos, de médios a gigantes, em
+              diversas superfícies.
+            </p>
+          </div>
+
+          <!-- Cartão de Serviço 3 -->
+          <div
+            class="min-w-[300px] bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+          >
+            <img
+              src="https://placehold.co/100x100/76D0C4/010101?text=Projeto"
+              alt="Ícone Projeto"
+              class="mx-auto mb-6 rounded-full"
+            />
+            <h4
+              class="text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
+            >
+              Projetos de Comunicação Visual
+            </h4>
+            <p class="text-gray-600 rounded-lg p-2">
+              Execução de projetos complexos de comunicação visual, com
+              expertise e inovação.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Clientes (Clients) -->
+    <section id="clientes" class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <h3 class="text-4xl font-bold mb-12 text-izq-dark rounded-lg p-2">
+          Alguns de Nossos Clientes
+        </h3>
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center"
+        >
+          <!-- Cliente 1 -->
+          <div class="p-4 rounded-lg bg-gray-50 shadow-md">
+            <img
+              src="https://placehold.co/150x80/010101/76D0C4?text=Formula+1"
+              alt="Logo Formula 1"
+              class="mx-auto mb-2 rounded-lg"
+            />
+            <p class="font-semibold text-izq-dark">Formula 1</p>
+          </div>
+          <!-- Cliente 2 -->
+          <div class="p-4 rounded-lg bg-gray-50 shadow-md">
+            <img
+              src="https://placehold.co/150x80/010101/76D0C4?text=Formula+E"
+              alt="Logo Formula E"
+              class="mx-auto mb-2 rounded-lg"
+            />
+            <p class="font-semibold text-izq-dark">Formula E</p>
+          </div>
+          <!-- Cliente 3 -->
+          <div class="p-4 rounded-lg bg-gray-50 shadow-md">
+            <img
+              src="https://placehold.co/150x80/010101/76D0C4?text=Braspress"
+              alt="Logo Braspress"
+              class="mx-auto mb-2 rounded-lg"
+            />
+            <p class="font-semibold text-izq-dark">Braspress</p>
+          </div>
+          <!-- Cliente 4 -->
+          <div class="p-4 rounded-lg bg-gray-50 shadow-md">
+            <img
+              src="https://placehold.co/150x80/010101/76D0C4?text=NFL"
+              alt="Logo NFL"
+              class="mx-auto mb-2 rounded-lg"
+            />
+            <p class="font-semibold text-izq-dark">NFL</p>
+          </div>
+          <!-- Você pode adicionar mais clientes aqui -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Contato (Contact) -->
+    <section id="contato" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4 text-center">
+        <h3 class="text-4xl font-bold mb-8 text-izq-dark rounded-lg p-2">
+          Entre em Contato
+        </h3>
+        <p class="text-lg mb-8 max-w-2xl mx-auto rounded-lg p-2">
+          Pronto para dar o próximo passo? Fale conosco e solicite um orçamento
+          para seu projeto de comunicação visual.
+        </p>
+        <div class="flex flex-col items-center space-y-4 rounded-lg p-4">
+          <p class="text-xl font-semibold">
+            <span class="text-izq-dark">Email:</span>
+            contato@izqinstalacoes.com.br
+          </p>
+          <p class="text-xl font-semibold">
+            <span class="text-izq-dark">Telefone:</span> (XX) XXXX-XXXX
+          </p>
+          <p class="text-xl font-semibold">
+            <span class="text-izq-dark">Endereço:</span> Sua Rua, Seu Número,
+            Sua Cidade - Estado
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé (Footer) -->
+    <footer class="bg-izq-dark text-white py-8">
+      <div class="container mx-auto px-4 text-center">
+        <p class="text-sm rounded-lg p-2">
+          &copy; 2025 IZQ Instalações. Todos os direitos reservados.
+        </p>
+        <p class="text-xs mt-2 rounded-lg p-2">
+          Desenvolvido com <span class="text-red-500">&hearts;</span> para IZQ
+          Instalações.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
