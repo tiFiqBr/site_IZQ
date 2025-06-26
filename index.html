@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IZQ Instalações - Instalação de Comunicação Visual</title>
-    <!-- Inclui o CDN do Tailwind CSS para fácil estilização -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       /* Define a fonte Inter para todo o corpo do documento */
@@ -27,21 +26,63 @@
       .border-izq-light {
         border-color: #76d0c4;
       }
+      /* Estilo para a barra de rolagem dos serviços */
+      .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: #010101 #e5e7eb; /* thumb e track */
+      }
+      .scrollbar-thin::-webkit-scrollbar {
+        height: 8px;
+      }
+      .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: #010101;
+        border-radius: 10px;
+      }
+      .scrollbar-thin::-webkit-scrollbar-track {
+        background-color: #e5e7eb;
+        border-radius: 10px;
+      }
     </style>
   </head>
-  <body class="bg-gray-50 text-gray-800">
-    <!-- Cabeçalho (Header) da página -->
+  <body class="bg-gray-50 text-gray-800 max-w-screen overflow-x-hidden">
     <header class="bg-izq-dark text-white py-6 shadow-md">
       <div
-        class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center"
+        class="container mx-auto px-4 flex justify-between items-center relative"
       >
         <h1
-          class="text-3xl font-bold mb-2 md:mb-0 rounded-lg p-2 text-izq-light"
+          class="text-3xl font-bold rounded-lg p-2 text-izq-light z-20 md:z-auto"
         >
           IZQ Instalações
         </h1>
-        <nav>
-          <ul class="flex space-x-6">
+
+        <button
+          id="menu-button"
+          class="md:hidden text-white focus:outline-none z-20"
+        >
+          <svg
+            class="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
+
+        <nav
+          id="mobile-menu"
+          class="absolute top-0 left-0 w-full bg-izq-dark md:bg-transparent transition-all duration-300 ease-in-out md:static md:w-auto md:block z-10"
+          style="transform: translateY(-100%)"
+        >
+          <ul
+            class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 items-center py-6 md:py-0"
+          >
             <li>
               <a
                 href="#inicio"
@@ -96,18 +137,57 @@
       </div>
     </header>
 
-    <!-- Seção de Início (Hero Section) -->
+    <script>
+      const menuButton = document.getElementById("menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuButton.addEventListener("click", () => {
+        const headerHeight = document.querySelector("header").offsetHeight;
+        if (mobileMenu.style.transform === "translateY(-100%)") {
+          mobileMenu.style.transform = `translateY(${headerHeight}px)`;
+          mobileMenu.classList.add("shadow-lg"); // Adiciona sombra quando aberto
+        } else {
+          mobileMenu.style.transform = "translateY(-100%)";
+          mobileMenu.classList.remove("shadow-lg"); // Remove sombra quando fechado
+        }
+      });
+
+      // Fechar o menu ao clicar em um item (opcional)
+      mobileMenu.querySelectorAll("a").forEach((item) => {
+        item.addEventListener("click", () => {
+          mobileMenu.style.transform = "translateY(-100%)";
+          mobileMenu.classList.remove("shadow-lg");
+        });
+      });
+
+      // Esconder o menu em telas maiores
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          // 768px é o breakpoint 'md' do Tailwind
+          mobileMenu.style.transform = "translateY(0)";
+          mobileMenu.classList.remove("shadow-lg");
+        } else {
+          mobileMenu.style.transform = "translateY(-100%)"; // Garante que ele se esconde ao encolher a tela
+        }
+      });
+
+      // Estado inicial no carregamento da página
+      if (window.innerWidth >= 768) {
+        mobileMenu.style.transform = "translateY(0)";
+      }
+    </script>
+
     <section
       id="inicio"
       class="relative bg-izq-dark text-white py-20 flex items-center justify-center min-h-[50vh]"
     >
       <div class="container mx-auto px-4 text-center">
         <h2
-          class="text-5xl font-extrabold mb-6 leading-tight rounded-lg p-2 text-izq-light"
+          class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6 leading-tight rounded-lg p-2 text-izq-light"
         >
           IZQ Instalações - Dando Vida à Sua Comunicação Visual
         </h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto rounded-lg p-2">
+        <p class="text-base sm:text-lg mb-8 max-w-2xl mx-auto rounded-lg p-2">
           Especialistas em instalação de outdoors, lonas, adesivos e projetos
           gigantes. Qualidade e visibilidade garantidas.
         </p>
@@ -120,19 +200,11 @@
       </div>
     </section>
 
-    <!-- Seção Sobre Nós (About Us) -->
     <section id="sobre" class="py-16 bg-white">
       <div
         class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-10"
       >
-        <!-- <div class="md:w-1/2">
-          <img
-            src="bodyIMG/Os lindos SQN.png"
-            alt="Instalação de Comunicação Visual"
-            class="rounded-2xl shadow-xl w-full h-auto object-cover"
-          />
-        </div> -->
-        <div class="md:w-1/2 relative overflow-hidden">
+        <div class="md:w-1/2 relative overflow-hidden w-full">
           <img
             id="slider-image"
             src="bodyIMG/img6.png"
@@ -167,20 +239,22 @@
               image.classList.remove("opacity-0");
               image.classList.add("opacity-100");
             }, 500); // Tempo do fade-out
-          }, 5000); // Troca a cada 3 segundos
+          }, 5000); // Troca a cada 5 segundos
         </script>
 
         <div class="md:w-1/2">
-          <h3 class="text-4xl font-bold mb-6 text-izq-dark rounded-lg p-2">
+          <h3
+            class="text-3xl sm:text-4xl font-bold mb-6 text-izq-dark rounded-lg p-2"
+          >
             Quem Somos
           </h3>
-          <p class="text-lg leading-relaxed mb-4 rounded-lg p-2">
+          <p class="text-base sm:text-lg leading-relaxed mb-4 rounded-lg p-2">
             A IZQ Instalações é uma empresa dedicada à excelência em montagem e
             instalação de comunicação visual. Com vasta experiência no mercado,
             somos especialistas em transformar projetos em realidade, garantindo
             visibilidade e impacto para a sua marca.
           </p>
-          <p class="text-lg leading-relaxed rounded-lg p-2">
+          <p class="text-base sm:text-lg leading-relaxed rounded-lg p-2">
             Nossa equipe qualificada e apaixonada trabalha com precisão na
             instalação de outdoors, lonas de grande formato, adesivos médios e
             gigantes, entre outras soluções. Comprometidos com a segurança e a
@@ -190,18 +264,18 @@
       </div>
     </section>
 
-    <!-- Seção de Serviços (Services) -->
     <section id="servicos" class="py-16 bg-gray-100">
       <div class="container mx-auto px-4 text-center">
-        <h3 class="text-4xl font-bold mb-12 text-izq-dark rounded-lg p-2">
+        <h3
+          class="text-3xl sm:text-4xl font-bold mb-12 text-izq-dark rounded-lg p-2"
+        >
           Nossos Serviços
         </h3>
         <div
-          class="flex gap-8 overflow-x-auto pb-4 pt-2 scrollbar-thin scrollbar-thumb-izq-dark scrollbar-track-gray-200"
+          class="flex overflow-x-auto pb-4 pt-2 scrollbar-thin scrollbar-thumb-izq-dark scrollbar-track-gray-200"
         >
-          <!-- Cartão de Serviço 1 -->
           <div
-            class="min-w-[300px] bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+            class="min-w-[280px] sm:min-w-[300px] flex-shrink-0 mx-2 bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <img
               src="https://placehold.co/100x100/76D0C4/010101?text=Outdoor"
@@ -209,19 +283,18 @@
               class="mx-auto mb-6 rounded-full"
             />
             <h4
-              class="text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
+              class="text-xl sm:text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
             >
               Instalação de Outdoors
             </h4>
-            <p class="text-gray-600 rounded-lg p-2">
+            <p class="text-sm sm:text-base text-gray-600 rounded-lg p-2">
               Montagem e instalação profissional de outdoors, garantindo
               segurança e máxima exposição.
             </p>
           </div>
 
-          <!-- Cartão de Serviço 2 -->
           <div
-            class="min-w-[300px] bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+            class="min-w-[280px] sm:min-w-[300px] flex-shrink-0 mx-2 bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <img
               src="https://placehold.co/100x100/76D0C4/010101?text=Lona"
@@ -229,19 +302,18 @@
               class="mx-auto mb-6 rounded-full"
             />
             <h4
-              class="text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
+              class="text-xl sm:text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
             >
               Lonas e Adesivos de Grande Formato
             </h4>
-            <p class="text-gray-600 rounded-lg p-2">
+            <p class="text-sm sm:text-base text-gray-600 rounded-lg p-2">
               Instalação impecável de lonas e adesivos, de médios a gigantes, em
               diversas superfícies.
             </p>
           </div>
 
-          <!-- Cartão de Serviço 3 -->
           <div
-            class="min-w-[300px] bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+            class="min-w-[280px] sm:min-w-[300px] flex-shrink-0 mx-2 bg-white p-8 rounded-2xl shadow-xl transform transition duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <img
               src="https://placehold.co/100x100/76D0C4/010101?text=Projeto"
@@ -249,11 +321,11 @@
               class="mx-auto mb-6 rounded-full"
             />
             <h4
-              class="text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
+              class="text-xl sm:text-2xl font-semibold mb-4 text-izq-dark rounded-lg p-2"
             >
               Projetos de Comunicação Visual
             </h4>
-            <p class="text-gray-600 rounded-lg p-2">
+            <p class="text-sm sm:text-base text-gray-600 rounded-lg p-2">
               Execução de projetos complexos de comunicação visual, com
               expertise e inovação.
             </p>
@@ -262,118 +334,100 @@
       </div>
     </section>
 
-    <section id="videos" class="py-16 bg-white">
+    <section id="videos" class="py-16 bg-white max-w-full overflow-hidden">
       <h3
-        class="text-4xl text-center font-bold mb-12 text-izq-dark rounded-lg p-2"
+        class="text-3xl sm:text-4xl text-center font-bold mb-12 text-izq-dark rounded-lg p-2"
       >
         Nosso time em ação!
       </h3>
 
-      <iframe
-        width="853"
-        height="480"
-        class="m-auto"
-        src="https://www.youtube.com/embed/ko-nK1hdAMA"
-        title="instalacao video"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-      ></iframe>
-      <!-- <div class="w-full max-w-3xl mx-auto px-4">
-         
-        <div class="relative overflow-hidden">
-          <div
-            id="video-carousel"
-            class="flex transition-transform duration-500"
-          >
-             
-            <div class="min-w-full px-2">
-              <h3 class="text-2xl font-semibold mb-6 text-center text-izq-dark">
-                Formula E - IZQ em parceria com FIQBrasil
-              </h3>
-              <div
-                class="relative aspect-video bg-black rounded-xl overflow-hidden shadow-xl"
-              >
-                <video
-                  src="videos/Video1.mp4"
-                  controls
-                  loop
-                  muted
-                  playsinline
-                  class="absolute inset-0 w-full h-full object-cover"
-                ></video>
-              </div>
-            </div>
-
-            
-            <div class="min-w-full px-2">
-              <h3 class="text-2xl font-semibold mb-6 text-center text-izq-dark">
-                Formula E - IZQ em parceria com FIQBrasil
-              </h3>
-              <div
-                class="relative aspect-video bg-black flex items-center justify-center rounded-xl overflow-hidden shadow-xl"
-              >
-                <video
-                  src="videos/Video2.mp4"
-                  controls
-                  loop
-                  muted
-                  playsinline
-                  class="max-h-full max-w-full object-contain"
-                ></video>
-              </div>
-            </div>
+      <div class="relative w-full max-w-4xl mx-auto px-4">
+        <div id="video-carousel" class="flex transition-transform duration-500">
+          <div class="min-w-full aspect-video">
+            <iframe
+              class="w-full h-full rounded-lg"
+              src="https://www.youtube.com/embed/ko-nK1hdAMA"
+              title="instalacao video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
           </div>
-
-          
-          <button
-            id="prev-btn"
-            class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
-          >
-            ◀
-          </button>
-          <button
-            id="next-btn"
-            class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
-          >
-            ▶
-          </button>
         </div>
-      </div> -->
+
+        <button
+          id="prev-video-btn"
+          class="absolute top-1/2 left-6 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
+        >
+          ◀
+        </button>
+        <button
+          id="next-video-btn"
+          class="absolute top-1/2 right-6 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
+        >
+          ▶
+        </button>
+      </div>
     </section>
 
     <script>
-      const carousel = document.getElementById("video-carousel");
-      const prevBtn = document.getElementById("prev-btn");
-      const nextBtn = document.getElementById("next-btn");
+      const videoCarousel = document.getElementById("video-carousel");
+      const prevVideoBtn = document.getElementById("prev-video-btn");
+      const nextVideoBtn = document.getElementById("next-video-btn");
 
-      let currentIndex = 0;
-      const totalItems = carousel.children.length;
+      let currentVideoIndex = 0;
+      const totalVideos = videoCarousel.children.length;
 
-      function updateCarousel() {
-        const offset = -currentIndex * 100;
-        carousel.style.transform = `translateX(${offset}%)`;
+      function updateVideoCarousel() {
+        const offset = -currentVideoIndex * 100;
+        videoCarousel.style.transform = `translateX(${offset}%)`;
       }
 
-      prevBtn.addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-        updateCarousel();
+      prevVideoBtn.addEventListener("click", () => {
+        currentVideoIndex = (currentVideoIndex - 1 + totalVideos) % totalVideos;
+        updateVideoCarousel();
       });
 
-      nextBtn.addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % totalItems;
-        updateCarousel();
+      nextVideoBtn.addEventListener("click", () => {
+        currentVideoIndex = (currentVideoIndex + 1) % totalVideos;
+        updateVideoCarousel();
+      });
+
+      // Opcional: Adicionar swipe/touch para o carrossel de vídeos
+      let startXVideo;
+      videoCarousel.addEventListener("touchstart", (e) => {
+        startXVideo = e.touches[0].clientX;
+      });
+
+      videoCarousel.addEventListener("touchmove", (e) => {
+        if (!startXVideo) return;
+        let currentX = e.touches[0].clientX;
+        let diff = startXVideo - currentX;
+
+        if (diff > 50) {
+          // Swipe left
+          currentVideoIndex = (currentVideoIndex + 1) % totalVideos;
+          updateVideoCarousel();
+          startXVideo = null;
+        } else if (diff < -50) {
+          // Swipe right
+          currentVideoIndex =
+            (currentVideoIndex - 1 + totalVideos) % totalVideos;
+          updateVideoCarousel();
+          startXVideo = null;
+        }
       });
     </script>
 
     <section id="fotos" class="py-16 bg-gray-100">
       <div class="w-full max-w-4xl mx-auto px-4">
-        <h3 class="text-4xl font-semibold mb-14 text-center text-izq-dark">
+        <h3
+          class="text-3xl sm:text-4xl font-semibold mb-14 text-center text-izq-dark"
+        >
           Alguns de Nossos Trabalhos
         </h3>
 
-        <!-- Slide Container -->
         <div
           class="relative overflow-hidden rounded-xl shadow-xl aspect-[16/9] bg-black"
         >
@@ -382,16 +436,15 @@
             class="flex transition-transform duration-500 h-full"
           ></div>
 
-          <!-- Botões -->
           <button
             id="img-prev"
-            class="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
+            class="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition z-10"
           >
             ◀
           </button>
           <button
             id="img-next"
-            class="absolute top-1/2 right-2 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
+            class="absolute top-1/2 right-2 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition z-10"
           >
             ▶
           </button>
@@ -458,40 +511,42 @@
         imgIndex = (imgIndex + 1) % imgTotal;
         updateImageSlide();
       });
+
+      // Opcional: Adicionar swipe/touch para o carrossel de imagens
+      let startXImage;
+      imageSlide.addEventListener("touchstart", (e) => {
+        startXImage = e.touches[0].clientX;
+      });
+
+      imageSlide.addEventListener("touchmove", (e) => {
+        if (!startXImage) return;
+        let currentX = e.touches[0].clientX;
+        let diff = startXImage - currentX;
+
+        if (diff > 50) {
+          // Swipe left
+          imgIndex = (imgIndex + 1) % imgTotal;
+          updateImageSlide();
+          startXImage = null;
+        } else if (diff < -50) {
+          // Swipe right
+          imgIndex = (imgIndex - 1 + imgTotal) % imgTotal;
+          updateImageSlide();
+          startXImage = null;
+        }
+      });
     </script>
 
-    <!-- <script>
-      let imgIndex = 0;
-
-      function updateImageSlide() {
-        const imgTotal = imageSlide.children.length;
-        const offset = -imgIndex * 100;
-        imageSlide.style.transform = `translateX(${offset}%)`;
-      }
-
-      imgPrev.addEventListener("click", () => {
-        const imgTotal = imageSlide.children.length;
-        imgIndex = (imgIndex - 1 + imgTotal) % imgTotal;
-        updateImageSlide();
-      });
-
-      imgNext.addEventListener("click", () => {
-        const imgTotal = imageSlide.children.length;
-        imgIndex = (imgIndex + 1) % imgTotal;
-        updateImageSlide();
-      });
-    </script> -->
-
-    <!-- Seção de Clientes (Clients) -->
     <section id="clientes" class="py-16 bg-white">
       <div class="container mx-auto px-4 text-center">
-        <h3 class="text-4xl font-bold mb-12 text-izq-dark rounded-lg p-2">
+        <h3
+          class="text-3xl sm:text-4xl font-bold mb-12 text-izq-dark rounded-lg p-2"
+        >
           Alguns de Nossos Clientes
         </h3>
         <div
           class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center"
         >
-          <!-- Cliente 1 -->
           <div class="p-4 rounded-lg bg-gray-50 shadow-md">
             <img
               src="https://placehold.co/150x80/010101/76D0C4?text=Formula+1"
@@ -500,7 +555,6 @@
             />
             <p class="font-semibold text-izq-dark">Formula 1</p>
           </div>
-          <!-- Cliente 2 -->
           <div class="p-4 rounded-lg bg-gray-50 shadow-md">
             <img
               src="https://placehold.co/150x80/010101/76D0C4?text=Formula+E"
@@ -509,7 +563,6 @@
             />
             <p class="font-semibold text-izq-dark">Formula E</p>
           </div>
-          <!-- Cliente 3 -->
           <div class="p-4 rounded-lg bg-gray-50 shadow-md">
             <img
               src="https://placehold.co/150x80/010101/76D0C4?text=Braspress"
@@ -518,7 +571,6 @@
             />
             <p class="font-semibold text-izq-dark">Braspress</p>
           </div>
-          <!-- Cliente 4 -->
           <div class="p-4 rounded-lg bg-gray-50 shadow-md">
             <img
               src="https://placehold.co/150x80/010101/76D0C4?text=NFL"
@@ -527,27 +579,27 @@
             />
             <p class="font-semibold text-izq-dark">NFL</p>
           </div>
-          <!-- Você pode adicionar mais clientes aqui -->
         </div>
       </div>
     </section>
 
-    <!-- Seção de Contato (Contact) -->
     <section id="contato" class="py-16 bg-gray-100">
       <div class="container mx-auto px-4 text-center">
-        <h3 class="text-4xl font-bold mb-8 text-izq-dark rounded-lg p-2">
+        <h3
+          class="text-3xl sm:text-4xl font-bold mb-8 text-izq-dark rounded-lg p-2"
+        >
           Entre em Contato
         </h3>
-        <p class="text-lg mb-8 max-w-2xl mx-auto rounded-lg p-2">
+        <p class="text-base sm:text-lg mb-8 max-w-2xl mx-auto rounded-lg p-2">
           Pronto para dar o próximo passo? Fale conosco e solicite um orçamento
           para seu projeto de comunicação visual.
         </p>
         <div class="flex flex-col items-center space-y-4 rounded-lg p-4">
-          <p class="text-xl font-semibold">
+          <p class="text-base sm:text-xl font-semibold">
             <span class="text-izq-dark">Email:</span>
             contato@izqinstalacoes.com.br
           </p>
-          <p class="text-xl font-semibold">
+          <p class="text-base sm:text-xl font-semibold">
             <span class="text-izq-dark">Telefone:</span>
             <a
               href="https://wa.me/5511930461820?text=Ol%C3%A1%2C%20tudo%20bem%3F%20Vim%20pelo%20site%20da%20IZQ%20Instala%C3%A7%C3%B5es."
@@ -557,10 +609,10 @@
               >(11) 93046-1820</a
             >
           </p>
-          <p class="text-xl font-semibold">
+          <p class="text-base sm:text-xl font-semibold">
             <span class="text-izq-dark">Endereço:</span>
             <a
-              href="https://www.google.com/maps/@-23.6199636,-46.6394769,3a,75y,104.54h,104.81t/data=!3m7!1e1!3m5!1siDXn_hLekiKVcilVX0KYLA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-14.809657609342338%26panoid%3DiDXn_hLekiKVcilVX0KYLA%26yaw%3D104.54437979145747!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDYyMi4wIKXMDSoASAFQAw%3D%3D"
+              href="https://maps.google.com/?q=Av.+Jabaquara,+1771+Sala+701+-+Mirand%C3%B3polis,+S%C3%A3o+Paulo+-+SP,+04045-003"
               target="_blank"
               >Av. Jabaquara, 1771 Sala 701 - Mirandópolis, São Paulo - SP,
               04045-003</a
@@ -570,14 +622,13 @@
       </div>
     </section>
 
-    <!-- Rodapé (Footer) -->
     <footer class="bg-izq-dark text-white py-8">
       <div class="container mx-auto px-4 text-center">
         <p class="text-sm rounded-lg p-2">
-          &copy; 2025 IZQ Instalações. Todos os direitos reservados.
+          © 2025 IZQ Instalações. Todos os direitos reservados.
         </p>
         <p class="text-xs mt-2 rounded-lg p-2">
-          Desenvolvido com <span class="text-red-500">&hearts;</span> para IZQ
+          Desenvolvido com <span class="text-red-500">♥</span> para IZQ
           Instalações.
         </p>
       </div>
