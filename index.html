@@ -65,6 +65,13 @@
             </li>
             <li>
               <a
+                href="#videos"
+                class="hover:text-izq-light transition duration-300 rounded-lg p-2"
+                >Vídeos</a
+              >
+            </li>
+            <li>
+              <a
                 href="#clientes"
                 class="hover:text-izq-light transition duration-300 rounded-lg p-2"
                 >Clientes</a
@@ -91,7 +98,7 @@
         <h2
           class="text-5xl font-extrabold mb-6 leading-tight rounded-lg p-2 text-izq-light"
         >
-          IZQ Instalações: Dando Vida à Sua Comunicação Visual
+          IZQ Instalações - Dando Vida à Sua Comunicação Visual
         </h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto rounded-lg p-2">
           Especialistas em instalação de outdoors, lonas, adesivos e projetos
@@ -111,13 +118,51 @@
       <div
         class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-10"
       >
-        <div class="md:w-1/2">
+        <!-- <div class="md:w-1/2">
           <img
-            src="https://placehold.co/600x400/76D0C4/010101?text=Instalação"
+            src="bodyIMG/Os lindos SQN.png"
             alt="Instalação de Comunicação Visual"
             class="rounded-2xl shadow-xl w-full h-auto object-cover"
           />
+        </div> -->
+        <div class="md:w-1/2 relative overflow-hidden">
+          <img
+            id="slider-image"
+            src="bodyIMG/img6.png"
+            alt="Imagem rotativa"
+            class="rounded-2xl shadow-xl w-full h-auto object-cover transition-opacity duration-1000 opacity-100"
+          />
         </div>
+        <script>
+          const image = document.getElementById("slider-image");
+          const imagePaths = [
+            "bodyIMG/img1.jpg",
+            "bodyIMG/img2.jpg",
+            "bodyIMG/img3.jpg",
+            "bodyIMG/img4.jpg",
+            "bodyIMG/img5.jpg",
+            "bodyIMG/img6.png",
+          ];
+
+          let currentIndex2 = 0;
+
+          setInterval(() => {
+            // Apaga a imagem atual suavemente
+            image.classList.remove("opacity-100");
+            image.classList.add("opacity-0");
+
+            setTimeout(() => {
+              // Troca a imagem após o fade-out
+              currentIndex2 = (currentIndex2 + 1) % imagePaths.length;
+              image.src = imagePaths[currentIndex2];
+
+              // Traz de volta a imagem suavemente
+              image.classList.remove("opacity-0");
+              image.classList.add("opacity-100");
+            }, 500); // Tempo do fade-out
+          }, 5000); // Troca a cada 3 segundos
+        </script>
+
         <div class="md:w-1/2">
           <h3 class="text-4xl font-bold mb-6 text-izq-dark rounded-lg p-2">
             Quem Somos
@@ -209,6 +254,226 @@
         </div>
       </div>
     </section>
+
+    <section id="videos" class="py-16 bg-white">
+      <h3
+        class="text-4xl text-center font-bold mb-12 text-izq-dark rounded-lg p-2"
+      >
+        Nosso time em ação!
+      </h3>
+
+      <iframe
+        width="853"
+        height="480"
+        class="m-auto"
+        src="https://www.youtube.com/embed/ko-nK1hdAMA"
+        title="instalacao video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      <!-- <div class="w-full max-w-3xl mx-auto px-4">
+         
+        <div class="relative overflow-hidden">
+          <div
+            id="video-carousel"
+            class="flex transition-transform duration-500"
+          >
+             
+            <div class="min-w-full px-2">
+              <h3 class="text-2xl font-semibold mb-6 text-center text-izq-dark">
+                Formula E - IZQ em parceria com FIQBrasil
+              </h3>
+              <div
+                class="relative aspect-video bg-black rounded-xl overflow-hidden shadow-xl"
+              >
+                <video
+                  src="videos/Video1.mp4"
+                  controls
+                  loop
+                  muted
+                  playsinline
+                  class="absolute inset-0 w-full h-full object-cover"
+                ></video>
+              </div>
+            </div>
+
+            
+            <div class="min-w-full px-2">
+              <h3 class="text-2xl font-semibold mb-6 text-center text-izq-dark">
+                Formula E - IZQ em parceria com FIQBrasil
+              </h3>
+              <div
+                class="relative aspect-video bg-black flex items-center justify-center rounded-xl overflow-hidden shadow-xl"
+              >
+                <video
+                  src="videos/Video2.mp4"
+                  controls
+                  loop
+                  muted
+                  playsinline
+                  class="max-h-full max-w-full object-contain"
+                ></video>
+              </div>
+            </div>
+          </div>
+
+          
+          <button
+            id="prev-btn"
+            class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
+          >
+            ◀
+          </button>
+          <button
+            id="next-btn"
+            class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
+          >
+            ▶
+          </button>
+        </div>
+      </div> -->
+    </section>
+
+    <script>
+      const carousel = document.getElementById("video-carousel");
+      const prevBtn = document.getElementById("prev-btn");
+      const nextBtn = document.getElementById("next-btn");
+
+      let currentIndex = 0;
+      const totalItems = carousel.children.length;
+
+      function updateCarousel() {
+        const offset = -currentIndex * 100;
+        carousel.style.transform = `translateX(${offset}%)`;
+      }
+
+      prevBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+        updateCarousel();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % totalItems;
+        updateCarousel();
+      });
+    </script>
+
+    <section class="py-16 bg-gray-100">
+      <div class="w-full max-w-4xl mx-auto px-4">
+        <h3 class="text-4xl font-semibold mb-14 text-center text-izq-dark">
+          Alguns de Nossos Trabalhos
+        </h3>
+
+        <!-- Slide Container -->
+        <div
+          class="relative overflow-hidden rounded-xl shadow-xl aspect-[16/9] bg-black"
+        >
+          <div
+            id="image-slide"
+            class="flex transition-transform duration-500 h-full"
+          ></div>
+
+          <!-- Botões -->
+          <button
+            id="img-prev"
+            class="absolute top-1/2 left-2 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
+          >
+            ◀
+          </button>
+          <button
+            id="img-next"
+            class="absolute top-1/2 right-2 -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-full shadow hover:bg-opacity-100 transition"
+          >
+            ▶
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const imagens = [
+        { src: "img/img1.jpeg", alt: "Projeto A" },
+        { src: "img/img3.jpeg", alt: "Projeto B" },
+        { src: "img/img4.jpeg", alt: "Projeto C" },
+        { src: "img/img6.jpeg", alt: "Projeto D" },
+        { src: "img/img7.jpeg", alt: "Projeto E" },
+        { src: "img/img8.jpeg", alt: "Projeto F" },
+        { src: "img/img10.jpeg", alt: "Projeto G" },
+        { src: "img/img14.jpg", alt: "Projeto H" },
+        { src: "img/img19.jpeg", alt: "Projeto I" },
+        { src: "img/img23.jpeg", alt: "Projeto J" },
+        { src: "img/img24.jpeg", alt: "Projeto K" },
+        { src: "img/img25.jpeg", alt: "Projeto L" },
+      ];
+
+      function renderSlides(lista) {
+        const slideContainer = document.getElementById("image-slide");
+        slideContainer.innerHTML = "";
+
+        lista.forEach(({ src, alt }) => {
+          const slideDiv = document.createElement("div");
+          slideDiv.className = "min-w-full";
+
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = alt;
+          img.className = "w-full h-full object-contain";
+
+          slideDiv.appendChild(img);
+          slideContainer.appendChild(slideDiv);
+        });
+      }
+
+      renderSlides(imagens);
+    </script>
+
+    <script>
+      const imageSlide = document.getElementById("image-slide");
+      const imgPrev = document.getElementById("img-prev");
+      const imgNext = document.getElementById("img-next");
+
+      let imgIndex = 0;
+      const imgTotal = imageSlide.children.length;
+
+      function updateImageSlide() {
+        const offset = -imgIndex * 100;
+        imageSlide.style.transform = `translateX(${offset}%)`;
+      }
+
+      imgPrev.addEventListener("click", () => {
+        imgIndex = (imgIndex - 1 + imgTotal) % imgTotal;
+        updateImageSlide();
+      });
+
+      imgNext.addEventListener("click", () => {
+        imgIndex = (imgIndex + 1) % imgTotal;
+        updateImageSlide();
+      });
+    </script>
+
+    <!-- <script>
+      let imgIndex = 0;
+
+      function updateImageSlide() {
+        const imgTotal = imageSlide.children.length;
+        const offset = -imgIndex * 100;
+        imageSlide.style.transform = `translateX(${offset}%)`;
+      }
+
+      imgPrev.addEventListener("click", () => {
+        const imgTotal = imageSlide.children.length;
+        imgIndex = (imgIndex - 1 + imgTotal) % imgTotal;
+        updateImageSlide();
+      });
+
+      imgNext.addEventListener("click", () => {
+        const imgTotal = imageSlide.children.length;
+        imgIndex = (imgIndex + 1) % imgTotal;
+        updateImageSlide();
+      });
+    </script> -->
 
     <!-- Seção de Clientes (Clients) -->
     <section id="clientes" class="py-16 bg-white">
