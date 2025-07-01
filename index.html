@@ -502,18 +502,17 @@
       </h3>
 
       <div class="relative w-full max-w-4xl mx-auto px-4">
-        <div id="video-carousel" class="flex transition-transform duration-500">
-          <div class="min-w-full aspect-video">
-            <iframe
-              class="w-full h-full rounded-lg"
-              src="https://www.youtube.com/embed/ko-nK1hdAMA"
-              title="instalacao video"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            ></iframe>
-          </div>
+        <div id="video-display" class="aspect-video">
+          <iframe
+            id="main-video-frame"
+            class="w-full h-full rounded-lg"
+            src=""
+            title=""
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
         </div>
 
         <button
@@ -532,51 +531,84 @@
     </section>
 
     <script>
-      const videoCarousel = document.getElementById("video-carousel");
+      // Referências aos elementos HTML
+      const mainVideoFrame = document.getElementById("main-video-frame");
       const prevVideoBtn = document.getElementById("prev-video-btn");
       const nextVideoBtn = document.getElementById("next-video-btn");
 
-      let currentVideoIndex = 0;
-      const totalVideos = videoCarousel.children.length;
+      // Array de objetos com os dados dos vídeos
+      // Adicione quantos vídeos precisar aqui!
 
-      function updateVideoCarousel() {
-        const offset = -currentVideoIndex * 100;
-        videoCarousel.style.transform = `translateX(${offset}%)`;
+      const videos = [
+        {
+          src: "https://www.youtube.com/embed/ko-nK1hdAMA",
+          title: "Time IZQ Instalações - Metrô.",
+        },
+        {
+          src: "https://www.youtube.com/embed/SurpGL7Kg1U",
+          title: "Instalação Tunel Linha 5 Lilás, Metrô de SP",
+        },
+      ];
+
+      let currentVideoIndex = 0; // Começa no primeiro vídeo
+
+      // Função para carregar o vídeo atual no iframe
+      function loadVideo(index) {
+        if (index >= 0 && index < videos.length) {
+          const video = videos[index];
+          mainVideoFrame.src = video.src;
+          mainVideoFrame.title = video.title;
+        }
       }
 
+      // Carrega o primeiro vídeo quando a página é carregada
+      loadVideo(currentVideoIndex);
+
+      // Event listener para o botão "Anterior"
       prevVideoBtn.addEventListener("click", () => {
-        currentVideoIndex = (currentVideoIndex - 1 + totalVideos) % totalVideos;
-        updateVideoCarousel();
+        currentVideoIndex =
+          (currentVideoIndex - 1 + videos.length) % videos.length;
+        loadVideo(currentVideoIndex);
       });
 
+      // Event listener para o botão "Próximo"
       nextVideoBtn.addEventListener("click", () => {
-        currentVideoIndex = (currentVideoIndex + 1) % totalVideos;
-        updateVideoCarousel();
+        currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+        loadVideo(currentVideoIndex);
       });
 
-      // Opcional: Adicionar swipe/touch para o carrossel de vídeos
+      // --- Opcional: Funcionalidade de Swipe/Touch ---
+      // A lógica de swipe também precisará ser ajustada para controlar o índice do vídeo.
       let startXVideo;
-      videoCarousel.addEventListener("touchstart", (e) => {
-        startXVideo = e.touches[0].clientX;
-      });
+      mainVideoFrame
+        .closest(".relative")
+        .addEventListener("touchstart", (e) => {
+          // Usamos o pai do iframe para a detecção de touch
+          startXVideo = e.touches[0].clientX;
+        });
 
-      videoCarousel.addEventListener("touchmove", (e) => {
+      mainVideoFrame.closest(".relative").addEventListener("touchmove", (e) => {
         if (!startXVideo) return;
         let currentX = e.touches[0].clientX;
         let diff = startXVideo - currentX;
 
         if (diff > 50) {
-          // Swipe left
-          currentVideoIndex = (currentVideoIndex + 1) % totalVideos;
-          updateVideoCarousel();
-          startXVideo = null;
+          // Swipe left (próximo vídeo)
+          currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+          loadVideo(currentVideoIndex);
+          startXVideo = null; // Reseta para evitar múltiplos disparos
         } else if (diff < -50) {
-          // Swipe right
+          // Swipe right (vídeo anterior)
           currentVideoIndex =
-            (currentVideoIndex - 1 + totalVideos) % totalVideos;
-          updateVideoCarousel();
-          startXVideo = null;
+            (currentVideoIndex - 1 + videos.length) % videos.length;
+          loadVideo(currentVideoIndex);
+          startXVideo = null; // Reseta para evitar múltiplos disparos
         }
+      });
+
+      // Para garantir que o touchmove não dispare múltiplos eventos se o dedo não for levantado
+      mainVideoFrame.closest(".relative").addEventListener("touchend", () => {
+        startXVideo = null;
       });
     </script>
 
